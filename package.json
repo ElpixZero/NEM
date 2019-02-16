@@ -1,0 +1,34 @@
+{
+  "name": "nem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ElpixZero/NEM.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ElpixZero/NEM/issues"
+  },
+  "homepage": "https://github.com/ElpixZero/NEM#readme",
+  "devDependencies": {
+    "eslint": "^5.13.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-config-prettier": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cross-env": "^5.2.0",
+    "mongoose": "^5.4.13"
+  }
+}
