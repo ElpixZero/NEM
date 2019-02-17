@@ -10,9 +10,9 @@ database()
         console.log(err);
       }
       console.log(`server is connected on ${config.PORT} port`);
-    }) 
+    });
   })
   .catch( () => {
     console.log('Unable to connect to database');
     process.exit(1);
-  })
+  });
