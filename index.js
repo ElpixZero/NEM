@@ -14,5 +14,6 @@ database()
   })
   .catch( () => {
     console.log('Unable to connect to database');
-    process.exit(1);
+    /* eslint-disable no-process-exit*/
+    process.exit(1); 
   });
