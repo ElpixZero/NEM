@@ -4,6 +4,10 @@ const gulp = require('gulp'); //ИНН + ЗАЧЕТКА + ПАСПОРТ С ПР
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('gulp-cssnano');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+
+
 
 function scss() {
    return gulp
@@ -18,15 +22,25 @@ function scss() {
   .pipe(gulp.dest('./public/stylesheets'));
 };
 
+function scripts() {
+  return gulp
+  .src('dev/js/**/*.js')
+  .pipe(concat('scripts.js'))
+  .pipe(uglify())
+  .pipe(gulp.dest('./public/javascripts'));
+}
+
 function watch() {
   gulp.watch('./dev/scss/**/*.scss', scss);
+  gulp.watch('./dev/js/**/*.js', scripts);
 }
 
 
 gulp.task('scss', scss);
+gulp.task('scripts', scripts);
 gulp.task('watch', watch);
 
-gulp.task('default', gulp.series('scss', 'watch' ));
+gulp.task('default', gulp.series(gulp.parallel('scss', 'scripts'), 'watch' ));
 
 
 
