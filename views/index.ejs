@@ -1,8 +1,33 @@
 <% include layout/header.ejs %>
 <div class="main">
-    <div class="container">
-      <div class="content">
-        <div class="post">
+  <div class="container">
+    <div class="content">
+      <div class="post">
+        <div class="top">
+            <h2>Title</h2>
+        </div>
+        <div class="body">
+          <p>lign-items
+            Содержание
+            Свойство align-items выравнивает флекс-элементы внутри контейнера в перпендикулярном направлении.
+            
+            Краткая информация
+            Значение по умолчанию	stretch
+            Наследуется	Нет
+            Применяется	К флекс-контейнеру
+            Анимируется	Нет
+            Синтаксис ?
+            align-items: flex-start | flex-end | center | baseline | stretch
+            Значения</p>
+        </div>
+        <div class="bottom">
+          <div class="author">
+            Author: <a href="/">El Gavadyan</a>
+          </div>
+            <a href="/">Comments</a>
+        </div>
+      </div>
+      <div class="post">
           <div class="top">
               <h2>Title</h2>
           </div>
@@ -26,52 +51,11 @@
             </div>
               <a href="/">Comments</a>
           </div>
-        </div>
-        <div class="post">
-            <div class="top">
-                <h2>Title</h2>
-            </div>
-            <div class="body">
-              <p>lign-items
-                Содержание
-                Свойство align-items выравнивает флекс-элементы внутри контейнера в перпендикулярном направлении.
-                
-                Краткая информация
-                Значение по умолчанию	stretch
-                Наследуется	Нет
-                Применяется	К флекс-контейнеру
-                Анимируется	Нет
-                Синтаксис ?
-                align-items: flex-start | flex-end | center | baseline | stretch
-                Значения</p>
-            </div>
-            <div class="bottom">
-              <div class="author">
-                Author: <a href="/">El Gavadyan</a>
-              </div>
-                <a href="/">Comments</a>
-            </div>
-          </div>
-      </div>
-
-      <div class="sidebar">
-        <div class="box auth">
-          <h2>Sing in</h2>
-          <form action="" method='post'>
-            <div class="form-group">
-              <label for="login">Login</label>
-              <input type="text" id='login' name='login'>
-            </div>
-            <div class="form-group">
-              <label for="password">password</label>
-              <input type="password" id='password' name='password'>
-            </div>
-
-            <button class='login-button' type='submit'>Log in</button>
-          </form>
-        </div>
-        <div class="box">box 2</div>
       </div>
     </div>
+
+    <% include layout/sidebar.ejs %>
+  </div>
 </div>
+
 <% include layout/footer.ejs %>

@@ -1,1 +1,1 @@
-console.log('heeeellp');
+$(function(){var o=!0;$(".switch-button").on("click",function(i){i.preventDefault(),o?(o=!1,$(".register").show("slow"),$(".login").hide()):(o=!0,$(".login").show("slow"),$(".register").hide())})});
