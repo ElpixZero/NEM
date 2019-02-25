@@ -30,6 +30,7 @@ button,
   padding-right: $freeSpace;
   display: flex;
   align-items: center;
+  border-radius: $borderRadius;
 
   &:active {
     box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
@@ -37,6 +38,22 @@ button,
 
   &:hover {
     text-decoration: none;
+  }
+
+  &.inverse {
+    color: $primaryColor;
+    background-color: $whiteColor;
+  }
+
+  &.secondary {
+    background-color: $secondaryColor;
+    border: 1px solid $secondaryColor;
+  }
+
+  &.secondary-inverse {
+    color: $secondaryColor;
+    background-color: $whiteColor;
+    border-color: $secondaryColor;
   }
 }
 
@@ -50,6 +67,7 @@ textarea {
   position: relative;
   width: 100%;
   font-size: 14px;
+  border-radius: $borderRadius;
 
   &:disabled {
     background-color: $greyColor;
