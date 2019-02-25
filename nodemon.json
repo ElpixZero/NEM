@@ -1,0 +1,10 @@
+{
+  "ingore": ["node_modules", "dev", "public"],
+  "env": {
+    "NODE_ENV": "development",
+    "PORT": 3000,
+    "M0ONGO_URL": "mongodb://localhost:27017/blog"
+  },
+  "ext": ".js,.json",
+  "watch": "./"
+}
