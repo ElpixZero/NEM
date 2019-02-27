@@ -7,6 +7,7 @@ const staticAsset = require('static-asset'); // for reqired refreshing page
 // const Post = require('./Models/post.js');
 const path = require('path');
 const config = require('./config');
+const routes = require('./routes');
 const mongoose = require('mongoose');
 
 // database
@@ -30,6 +31,7 @@ const app = express();
 // sets and uses
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(staticAsset(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
@@ -41,6 +43,12 @@ app.use(
 app.get('/', function (req, res) {
   res.render('index');
 }); 
+
+app.use('/api/auth', routes.auth);
+
+app.post('/aa', (req, res) => {
+  console.log(req.body);
+})
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
