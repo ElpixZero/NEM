@@ -8,6 +8,8 @@
 		"node/prefer-global/url-search-params": ["error", "always"],
 		"node/prefer-global/url": ["error", "always"],
 		"no-console": "off",
-		"process.exit": "off"
+		"process.exit": "off",
+		"no-unused-vars": "off",
+		"node/no-extraneous-require": "off"
 	}
 }
