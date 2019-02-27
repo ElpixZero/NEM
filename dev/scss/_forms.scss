@@ -95,3 +95,14 @@ textarea {
   min-height: 80px;
 }
 
+input,
+textarea {
+  &.error {
+    border-color: $errorColor;
+    color: $errorColor;
+    &::placeholder {
+      color: lighten($errorColor, 20%);
+    }
+  }
+}
+
