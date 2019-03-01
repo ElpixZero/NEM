@@ -6,9 +6,7 @@ const bcrypt = require('bcrypt-nodejs');
 
 //POST is authorized
 router.post('/register', (req, res) => {
-  const login = req.body.login;
-  const password = req.body.password;
-  const passwordConfirm = req.body.passwordConfirm;
+  const {login, password, passwordConfirm} = req.body;
 
   if (!login || !password || !passwordConfirm) {
     const fieldsError = [];
@@ -58,7 +56,9 @@ router.post('/register', (req, res) => {
               password: hash
             })
             .then (user => {
-              console.log(user);
+              req.session.userId = user.id;
+              req.session.userLogin = user.login;
+              
               res.json({
                 ok: true,
                 message: 'Успешно!'
@@ -81,5 +81,73 @@ router.post('/register', (req, res) => {
       })
     }
 });
+
+//POST for logging
+router.post('/logging', (req, res) => {
+  const login = req.body.login;
+  const password = req.body.password;
+
+  if (!login || !password) {
+    const fieldsError = [];
+
+    if (!login) fieldsError.push('login');
+    if (!password) fieldsError.push('password');
+
+    res.json({
+      ok: false,
+      error: 'Заполните все поля',
+      fields: fieldsError
+    });
+  } else models.User.findOne({
+      login
+  }).then( user => {
+    if (!user) {
+      res.json({
+        ok: true,
+        message: "Неправильный логин или пароль"
+      });
+    } else {
+      console.log(user); 
+      bcrypt.compare(password, user.password, function(err, result) {
+        if (!result) {
+          res.json({
+            ok: false,
+            message: "Неправильный логин или пароль",
+            fields: ['login', 'password']
+          });
+        } else {
+          req.session.userId = user.id;
+          req.session.userLogin = user.login;
+
+          res.json({
+            ok: true,
+            message: 'Аккаунт найден!'
+          });
+        }
+      });
+    }
+  })
+  .catch(e => {
+    console.log(e);
+    res.json( {
+      ok: false,
+      message: 'Попробуйте позже!'
+    });
+  });
+});
+
+
+
+//POST for logout
+router.get('/logout', (req, res) => {
+  if (req.session) {
+    // delete session object
+    req.session.destroy(() => {
+      res.redirect('/');
+    });
+  } else {
+    res.redirect('/');
+  }
+})
 
 module.exports = router; 
