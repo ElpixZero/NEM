@@ -98,11 +98,12 @@ textarea {
 input,
 textarea {
   &.error {
-    border-color: $errorColor;
+    border-color: $errorColor !important;
     color: $errorColor;
     &::placeholder {
       color: lighten($errorColor, 20%);
     }
   }
 }
+
 

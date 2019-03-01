@@ -59,6 +59,6 @@ p.error {
 div.error,
 p.error {
   background-color: lighten($errorColor, 45%);
-  border-color: $errorColor;
+  border-color: $errorColor !important;
   color: $errorColor;
 }

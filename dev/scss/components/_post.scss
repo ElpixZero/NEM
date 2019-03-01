@@ -25,3 +25,33 @@
     justify-content: space-between;
   }
 }
+
+.add-post {
+  min-height: 100px;
+  width: 100%;
+  padding: $freeSpace;
+  margin-bottom: $freeSpace;
+  background-color: $whiteColor;
+  border: 1px solid $greyColor;
+  border-radius: $borderRadius;
+
+  h2 {
+    margin: 0px;
+    margin-bottom: 30px;
+  }
+
+  form {
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    #post-body {
+      min-height: 200px;
+      background-color: $whiteColor;
+      border: 1px solid $greyColor;
+      padding: 8px 10px;
+      outline: none;
+    }
+  }
+}
