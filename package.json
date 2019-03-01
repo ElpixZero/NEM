@@ -20,9 +20,11 @@
   "homepage": "https://github.com/ElpixZero/NEM#readme",
   "devDependencies": {
     "browser-sync": "^2.26.3",
+    "connect-mongo": "^2.0.3",
     "eslint": "^5.13.0",
     "eslint-config-prettier": "^4.0.0",
     "eslint-plugin-node": "^8.0.1",
+    "express-session": "^1.15.6",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-concat": "^2.6.1",
@@ -39,6 +41,7 @@
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
     "jquery": "^3.3.1",
+    "medium-editor": "^5.23.3",
     "mongoose": "^5.4.13"
   }
 }

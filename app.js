@@ -3,12 +3,14 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const staticAsset = require('static-asset'); // for reqired refreshing page
+const staticAsset = require('static-asset'); // for reqired refreshing page, it adding hash
 // const Post = require('./Models/post.js');
 const path = require('path');
 const config = require('./config');
 const routes = require('./routes');
 const mongoose = require('mongoose');
+const session = require('express-session'); //allow to create session in express
+const MongoStore = require('connect-mongo')(session); //allow to connect this session to MongoDb
 
 // database
 mongoose.Promise = global.Promise;
@@ -28,6 +30,18 @@ mongoose.connect(config.MONGO_URL, { useNewUrlParser: true });
 // express
 const app = express();
 
+// sessions
+app.use(
+  session({
+    secret: config.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
+  })
+);
+
 // sets and uses
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -41,14 +55,21 @@ app.use(
 
 // routers
 app.get('/', function (req, res) {
-  res.render('index');
+  const login = req.session.userLogin;
+  const id = req.session.userId;
+
+  res.render('index', {
+    user: {
+      id,
+      login
+    }
+  });
 }); 
 
 app.use('/api/auth', routes.auth);
+app.use('/post', routes.post);
 
-app.post('/aa', (req, res) => {
-  console.log(req.body);
-})
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
