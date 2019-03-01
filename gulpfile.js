@@ -24,7 +24,10 @@ function scss() {
 
 function scripts() {
   return gulp
-  .src('dev/js/**/*.js')
+  .src(['dev/js/auth.js',
+       'dev/js/post.js',
+       'node_modules/medium-editor/dist/js/medium-editor.min.js'
+  ])
   .pipe(concat('scripts.js'))
   .pipe(uglify())
   .pipe(gulp.dest('./public/javascripts'));
