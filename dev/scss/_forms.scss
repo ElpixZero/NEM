@@ -5,7 +5,6 @@ form {
   .form-group {
     margin-bottom: $freeSpace;
   
-
     label {
       font-size: 0.9em;
     }
@@ -104,6 +103,10 @@ textarea {
       color: lighten($errorColor, 20%);
     }
   }
+}
+
+a {
+  text-decoration: none;
 }
 
 

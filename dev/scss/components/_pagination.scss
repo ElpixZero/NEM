@@ -1,0 +1,18 @@
+.pagination {
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    color: $whiteColor;
+    background-color: $primaryColor;
+    font-size: 14px;
+    border: 1px solid $primaryColor;
+    cursor: pointer;
+    height: 33px;
+    padding-left: $freeSpace;
+    padding-right: $freeSpace;
+    display: flex;
+    align-items: center;
+    border-radius: $borderRadius;
+  }
+}

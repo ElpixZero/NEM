@@ -17,6 +17,7 @@ $successColor: green;
 @import 'grid';
 @import 'forms';
 @import 'typography';
+@import 'links';
 @import '../../node_modules/medium-editor/dist/css/medium-editor';
 @import '../../node_modules/medium-editor/dist/css/themes/default';
 
@@ -41,6 +42,8 @@ body {
 @import 'footer';
 @import 'components/post';
 @import 'components/auth';
+@import 'components/pagination';
+
 
 
 
