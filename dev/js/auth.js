@@ -88,7 +88,6 @@ $(function() {
       } 
     } else {
       $(location).attr('href', '/');
-      console.log('register');
     }
   });
   });

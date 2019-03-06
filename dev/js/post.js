@@ -3,7 +3,6 @@
 $(function() { 
 
   function removeErrors() {
-    console.log('ggg');
     $('.add-post p.error').remove();
     $('#post-title, #post-body').removeClass('error');
   };
@@ -21,8 +20,6 @@ $(function() {
   $('.publish-button').on('click', function(e)  {
     e.preventDefault();
 
-    $('#post-body').val('');
-
     removeErrors();
 
     var postData = {
@@ -35,8 +32,9 @@ $(function() {
       type: 'POST',
       data: JSON.stringify(postData),
       contentType: 'application/json',
-      url: '/post/add',
+      url: '/posts/add',
     }).done(function(data) {
+
       if (!data.ok) {
         $('.add-post h2').after('<p class="error">' + data.error + '</p>');
 
@@ -47,7 +45,7 @@ $(function() {
           });
         } 
       } else {
-        console.log('good');
+        $(location).attr('href', '/');
       }
      });
 

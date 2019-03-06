@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../Models');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt-nodejs'); // for safing password. It changes it by adding hash/
 
 
 //POST is authorized
@@ -99,20 +99,20 @@ router.post('/logging', (req, res) => {
       fields: fieldsError
     });
   } else models.User.findOne({
-      login
+      login,
   }).then( user => {
     if (!user) {
       res.json({
-        ok: true,
-        message: "Неправильный логин или пароль"
+        ok: false,
+        error: "Неправильный логин или пароль"
       });
     } else {
-      console.log(user); 
       bcrypt.compare(password, user.password, function(err, result) {
         if (!result) {
+          console.log(user);
           res.json({
             ok: false,
-            message: "Неправильный логин или пароль",
+            error: "Неправильный логин или пароль",
             fields: ['login', 'password']
           });
         } else {

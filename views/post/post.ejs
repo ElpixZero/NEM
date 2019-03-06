@@ -1,0 +1,29 @@
+<% include ../layout/header.ejs %>
+
+<div class="main">
+  <div class="container">
+    <div class="content">
+      <div class="post">
+        <div class="top">
+          <h2> 
+            <%= post.title %>
+          </h2>
+        </div>
+        <div class="body">
+          <p>
+            <%= post.body %>
+          </p>
+        </div>
+        <div class="bottom">
+          <div class="author">
+            Author: <a href="/">GGG</a>
+          </div>
+            <a href="/">Comments</a>
+        </div>
+      </div>
+
+    <% include ../layout/sidebar.ejs %>
+  </div>
+</div>
+
+<% include ../layout/footer.ejs %>

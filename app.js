@@ -22,6 +22,7 @@ mongoose.connection
   .on('open', () => {
     const info = mongoose.connection;
     console.log(`Connected to ${info.host}:${info.port}:${info.name}`);
+    // require('./mocks')();
   });
 
 mongoose.connect(config.MONGO_URL, { useNewUrlParser: true });
@@ -54,20 +55,10 @@ app.use(
 );
 
 // routers
-app.get('/', function (req, res) {
-  const login = req.session.userLogin;
-  const id = req.session.userId;
-
-  res.render('index', {
-    user: {
-      id,
-      login
-    }
-  });
-}); 
-
 app.use('/api/auth', routes.auth);
-app.use('/post', routes.post);
+app.use('/posts', routes.post);
+app.use('/', routes.archieve);
+
 
 
 

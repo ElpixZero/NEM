@@ -37,11 +37,16 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "@types/turndown": "^5.0.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "dotenv": "^6.2.0",
+    "faker": "^4.1.0",
     "jquery": "^3.3.1",
     "medium-editor": "^5.23.3",
-    "mongoose": "^5.4.13"
+    "mongoose": "^5.4.13",
+    "mongoose-url-slugs": "^1.0.2",
+    "transliter": "^2.2.1",
+    "turndown": "^5.0.3"
   }
 }

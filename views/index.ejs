@@ -2,57 +2,42 @@
 <div class="main">
   <div class="container">
     <div class="content">
-      <div class="post">
-        <div class="top">
-            <h2>Title</h2>
-        </div>
-        <div class="body">
-          <p>lign-items
-            Содержание
-            Свойство align-items выравнивает флекс-элементы внутри контейнера в перпендикулярном направлении.
-            
-            Краткая информация
-            Значение по умолчанию	stretch
-            Наследуется	Нет
-            Применяется	К флекс-контейнеру
-            Анимируется	Нет
-            Синтаксис ?
-            align-items: flex-start | flex-end | center | baseline | stretch
-            Значения</p>
-        </div>
-        <div class="bottom">
-          <div class="author">
-            Author: <a href="/">El Gavadyan</a>
-          </div>
-            <a href="/">Comments</a>
-        </div>
-      </div>
-      <div class="post">
-          <div class="top">
-              <h2>Title</h2>
-          </div>
-          <div class="body">
-            <p>lign-items
-              Содержание
-              Свойство align-items выравнивает флекс-элементы внутри контейнера в перпендикулярном направлении.
-              
-              Краткая информация
-              Значение по умолчанию	stretch
-              Наследуется	Нет
-              Применяется	К флекс-контейнеру
-              Анимируется	Нет
-              Синтаксис ?
-              align-items: flex-start | flex-end | center | baseline | stretch
-              Значения</p>
-          </div>
-          <div class="bottom">
-            <div class="author">
-              Author: <a href="/">El Gavadyan</a>
+      <% posts.forEach( post => { %>
+        <div class="post">
+            <div class="top">
+                <h2><a href="/posts/<%= post.url %>"><%= post.title %></a></h2>
             </div>
-              <a href="/">Comments</a>
+            <div class="body">
+              <p><%= post.body %></p>
+            </div>
+            <div class="bottom">
+              <div class="author">
+                Author: <a href="/">GGG</a>
+              </div>
+                <a href="/">Comments</a>
+            </div>
           </div>
+      <% }) %>
+
+      <div class="pagination">
+          <% if  (current == 1) { %>
+            <a class="toOld" href="/archieve/<%=current + 1 %>">К старым</a>
+          <% } %>
+        
+        <% if  (current == 2) { %>
+          <a class="toMain" href="/">На главную</a>
+        <% } %>
+
+        <% if (current > 2) { %>
+          <a class="toNew" href="/archieve/<%=current - 1 %>">К новым</a>
+        <% } %>
+
+        <% if  (current !== 1 && pages > 0 && current < pages) { %>
+          <a class="toOld" href="/archieve/<%=current + 1 %>">К старым</a>
+        <% } %>
       </div>
     </div>
+
 
     <% include layout/sidebar.ejs %>
   </div>
