@@ -18,7 +18,7 @@
       </div>
     </form>
     <% } else { %>
-      <p> Привет, <%= user.login  %>   <a href="/api/auth/logout">Выход</a> </p>
+      <p> Привет, <a href="/users/<%= user.login  %>"><%= user.login  %> </a> <a href="/api/auth/logout">Выход</a> </p>
       <a href="/posts/add">Добивать пост</a>
     <% } %>
 
