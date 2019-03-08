@@ -25,10 +25,8 @@ $(function() {
     }
   });
   
-  // clear register and logging form
   $('form.login input, form.register input').on('focus', removeErrors);
 
-  // register
   $('.register-button').on('click', function(e) {
   e.preventDefault();
 
@@ -61,7 +59,6 @@ $(function() {
     });
   });
 
-  //logging
   $('.login-button').on('click', function(e) {
   e.preventDefault();
 
