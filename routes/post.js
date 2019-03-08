@@ -3,9 +3,6 @@ const router = express.Router();
 const models = require('../Models');
 const TurndownService = require('turndown')(); // Convert HTML into Markdown
 
-
-
-// routes
 router.get('/add', (req, res) => {
   const userLogin = req.session.userLogin;
   const userId = req.session.userId;

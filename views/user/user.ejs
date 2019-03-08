@@ -1,0 +1,48 @@
+<% include ../layout/header.ejs %>
+<div class="main">
+  <div class="container">
+    <div class="content">
+
+      <% if (!posts) { %>
+        <h3>Нет постов. Самое время создать!</h3>
+      <% } else { %>
+        
+        <h3>Посты автора: <%= _user.login %> </h3>
+
+        <% posts.forEach( post => { %>
+          <div class="post">
+              <div class="top">
+                  <h2><a href="/posts/<%= post.url %>"><%= post.title %></a></h2>
+              </div>
+              <div class="body">
+                <p><%= post.body %></p>
+              </div>
+              <div class="bottom">
+                <div class="author">
+                </div>
+                  <a href="/">Comments</a>
+              </div>
+            </div>
+          <% }) %>
+
+        <div class="pagination">
+          <% if  (current == 2) { %>
+            <a class="toMain" href="/users/<%= _user.login %>">На первую</a>
+          <% } %>
+
+          <% if (current > 2) { %>
+            <a class="toNew" href="/users/<%= _user.login %>/<%=current - 1 %>">К новым</a>
+          <% } %>
+
+          <% if  (pages > 0 && current <= pages) { %>
+            <a class="toOld" href="/users/<%= _user.login %>/<%=current + 1 %>">К старым</a>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
+
+    <% include ../layout/sidebar.ejs %>
+  </div>
+</div>
+
+<% include ../layout/footer.ejs %>

@@ -2,6 +2,11 @@
 <div class="main">
   <div class="container">
     <div class="content">
+
+      <% if (!posts) { %>
+        <h3>Нет постов. Самое время создать!</h3>
+      <% } else { %>
+
       <% posts.forEach( post => { %>
         <div class="post">
             <div class="top">
@@ -12,7 +17,7 @@
             </div>
             <div class="bottom">
               <div class="author">
-                Author: <a href="/">GGG</a>
+                Author: <a href="/users/<%= post.owner.login  %>"><%= post.owner.login %></a>
               </div>
                 <a href="/">Comments</a>
             </div>
@@ -20,10 +25,6 @@
       <% }) %>
 
       <div class="pagination">
-          <% if  (current == 1) { %>
-            <a class="toOld" href="/archieve/<%=current + 1 %>">К старым</a>
-          <% } %>
-        
         <% if  (current == 2) { %>
           <a class="toMain" href="/">На главную</a>
         <% } %>
@@ -32,12 +33,12 @@
           <a class="toNew" href="/archieve/<%=current - 1 %>">К новым</a>
         <% } %>
 
-        <% if  (current !== 1 && pages > 0 && current < pages) { %>
+        <% if  (pages > 0 && current < pages) { %>
           <a class="toOld" href="/archieve/<%=current + 1 %>">К старым</a>
         <% } %>
       </div>
+      <% } %>
     </div>
-
 
     <% include layout/sidebar.ejs %>
   </div>

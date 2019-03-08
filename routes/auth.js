@@ -3,8 +3,6 @@ const router = express.Router();
 const models = require('../Models');
 const bcrypt = require('bcrypt-nodejs'); // for safing password. It changes it by adding hash/
 
-
-//POST is authorized
 router.post('/register', (req, res) => {
   const {login, password, passwordConfirm} = req.body;
 
@@ -82,7 +80,6 @@ router.post('/register', (req, res) => {
     }
 });
 
-//POST for logging
 router.post('/logging', (req, res) => {
   const login = req.body.login;
   const password = req.body.password;
@@ -109,7 +106,6 @@ router.post('/logging', (req, res) => {
     } else {
       bcrypt.compare(password, user.password, function(err, result) {
         if (!result) {
-          console.log(user);
           res.json({
             ok: false,
             error: "Неправильный логин или пароль",
@@ -136,9 +132,6 @@ router.post('/logging', (req, res) => {
   });
 });
 
-
-
-//POST for logout
 router.get('/logout', (req, res) => {
   if (req.session) {
     // delete session object

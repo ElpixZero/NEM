@@ -4,18 +4,30 @@ const models = require('../Models');
 
 const config = require('../config')
 
+function сountSkipingPages(page) {
+  let result = 0;
+  for (let i = 1; i < page; i++) {
+    result += i;
+  }
+  return result;
+}
+
 function showPosts(req, res) {
   const userLogin = req.session.userLogin;
   const userId = req.session.userId;
-  const page = Number(req.params.page) || 1; //нормально привести к типу Int
+  const page = Number(req.params.page) || 1;
   const perPage = Number(config.PER_PAGE); 
   
   models.Post.find({})
-    .skip(perPage * page - perPage)
-    .limit(page)
+    .skip(page * perPage - perPage)
+    .limit(perPage)
+    .populate('owner') //for getting user by value of owner, which equals user's id
+    .sort({
+      createdAt: -1 // for right rendering - before new posts,
+    })
     .then( posts => {
       models.Post.countDocuments()
-      .then(count => {
+      .then(count => {        
         res.render('index', {
           posts,
           current: page,
@@ -67,6 +79,50 @@ router.get('/posts/:post', (req, res, next) => {
       }
     })
   }
+});
+
+router.get('/users/:login/:page*?', (req, res, next) => {
+  const userLogin = req.session.userLogin;
+  const userId = req.session.userId;
+  const login = req.params.login;
+  const page = Number(req.params.page) || 1; 
+
+  const perPage = Number(config.PER_PAGE); 
+  
+  models.User.findOne({
+    login,
+  }).then(user => {
+    models.Post.find({
+      owner: user.id
+    })
+    .skip(сountSkipingPages(page))
+    .limit(page)
+    .sort({
+      createdAt: -1 // for right rendering - before new posts,
+    })
+    .then( posts => {
+      models.Post.countDocuments({
+        owner: user.id
+      })
+      .then(count => {
+        console.log(count);
+        res.render('user/user', {
+          posts,
+          _user: user,
+          current: page,
+          pages: Math.ceil(count / perPage),
+          user: {
+            id: userId,
+            login: userLogin
+          },
+        })
+      }).catch(() => {
+        throw new Error('server error');
+      })
+    }).catch(() => {
+      throw new Error('server error');
+    })
+  })
 });
  
 module.exports = router; 
