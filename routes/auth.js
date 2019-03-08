@@ -3,7 +3,7 @@ const router = express.Router();
 const models = require('../Models');
 const bcrypt = require('bcrypt-nodejs'); // for safing password. It changes it by adding hash/
 
-router.post('/register', (req, res) => {
+router.post('/register', async (req, res) => {
   const {login, password, passwordConfirm} = req.body;
 
   if (!login || !password || !passwordConfirm) {
@@ -25,62 +25,58 @@ router.post('/register', (req, res) => {
       fields: ['login']
     });
   } else if (login.length < 3 || login.length > 16) {
-    res.json({
-      ok: false,
-      error: 'Логин должен содержать от 3 до 16 символов',
-      fields: ['login']
-    });
+      res.json({
+        ok: false,
+        error: 'Логин должен содержать от 3 до 16 символов',
+        fields: ['login']
+      });
   } else if(password.length < 6) {
-    res.json({
-      ok: false,
-      error: 'Пароль должен содержать не менее 6 символов',
-      fields: ['login']
-    });
+      res.json({
+        ok: false,
+        error: 'Пароль должен содержать не менее 6 символов',
+        fields: ['login']
+      });
   } else if (password !== passwordConfirm) {
       res.json({
         ok: false,
         error: 'Пароли не совпадают',
         fields: ['password', 'passwordConfirm']
       });
-    } else {
-      models.User.findOne({
-        login
-      }).then( user => {
-        if (!user) {
-          bcrypt.hash(password, null, null, (err, hash) => {
+  } else {
+      try {
+        const user = await models.User.findOne({
+          login
+        });
 
-            models.User.create({
+        if (!user) {
+          bcrypt.hash(password, null, null, async (err, hash) => {
+            const user = await models.User.create({
               login,
               password: hash
-            })
-            .then (user => {
-              req.session.userId = user.id;
-              req.session.userLogin = user.login;
-              
-              res.json({
-                ok: true,
-                message: 'Успешно!'
-              }); 
-            })
-            .catch(e => {
-              console.log(e);
-              res.json( {
-                ok: false,
-                message: 'Попробуйте позже!'
-              });
             });
-          }); 
+            
+            req.session.userId = user.id;
+            req.session.userLogin = user.login;
+            
+            res.json({
+              ok: true,
+              message: 'Успешно!'
+            }); 
+          })
         } else {
           res.json({
             ok: false,
             error: "Логин занят! Выберите, пожалуйста, другой"
           })
         }
-      })
+      }
+      catch(e) {
+        throw new Error('Ошибка сервера. Попробуйте, пожалуйста, немного позже')
+      }
     }
 });
 
-router.post('/logging', (req, res) => {
+router.post('/logging', async (req, res) => {
   const login = req.body.login;
   const password = req.body.password;
 
@@ -95,41 +91,42 @@ router.post('/logging', (req, res) => {
       error: 'Заполните все поля',
       fields: fieldsError
     });
-  } else models.User.findOne({
-      login,
-  }).then( user => {
-    if (!user) {
-      res.json({
-        ok: false,
-        error: "Неправильный логин или пароль"
-      });
-    } else {
-      bcrypt.compare(password, user.password, function(err, result) {
-        if (!result) {
+  } else {
+      try {
+        const user = await models.User.findOne({
+          login,
+        });
+
+        if (!user) {
           res.json({
             ok: false,
-            error: "Неправильный логин или пароль",
-            fields: ['login', 'password']
+            error: "Неправильный логин или пароль"
           });
-        } else {
-          req.session.userId = user.id;
-          req.session.userLogin = user.login;
-
-          res.json({
-            ok: true,
-            message: 'Аккаунт найден!'
+        } else { 
+          bcrypt.compare(password, user.password, (err, result) => {
+            if (!result) {
+              res.json({
+                ok: false,
+                error: "Неправильный логин или пароль",
+                fields: ['login', 'password']
+              });
+            } else {
+              req.session.userId = user.id;
+              req.session.userLogin = user.login;
+    
+              res.json({
+                ok: true,
+                message: 'Аккаунт найден!'
+              });
+            }
           });
         }
-      });
+      }
+
+      catch(e) {
+        throw new Error('Ошибка сервера. Попробуйте, пожалуйста, немного позже')
+      }
     }
-  })
-  .catch(e => {
-    console.log(e);
-    res.json( {
-      ok: false,
-      message: 'Попробуйте позже!'
-    });
-  });
 });
 
 router.get('/logout', (req, res) => {

@@ -4,7 +4,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const staticAsset = require('static-asset'); // for reqired refreshing page, it adding hash
-// const Post = require('./Models/post.js');
 const path = require('path');
 const config = require('./config');
 const routes = require('./routes');
@@ -59,17 +58,12 @@ app.use('/api/auth', routes.auth);
 app.use('/posts', routes.post);
 app.use('/', routes.archieve);
 
-
-
-
-// catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-//error handler
 app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.render('error', {

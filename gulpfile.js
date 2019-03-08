@@ -1,13 +1,11 @@
 /* eslint-disable node/no-unpublished-require*/
 
-const gulp = require('gulp'); //ИНН + ЗАЧЕТКА + ПАСПОРТ С ПРОПИСКОЙ + ДОГОВОР С ОБЩАГИ (ЗАВЕРЕННЫЙ) + ЗАЯВЛЕНИЕ.
+const gulp = require('gulp');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('gulp-cssnano');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
-
-
 
 function scss() {
    return gulp
@@ -38,12 +36,14 @@ function watch() {
   gulp.watch('./dev/js/**/*.js', scripts);
 }
 
-
 gulp.task('scss', scss);
 gulp.task('scripts', scripts);
 gulp.task('watch', watch);
 
-gulp.task('default', gulp.series(gulp.parallel('scss', 'scripts'), 'watch' ));
+gulp.task('default', gulp.series(
+  gulp.parallel('scss', 'scripts'), 
+  'watch' )
+);
 
 
 

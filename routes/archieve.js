@@ -1,48 +1,38 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../Models');
+const config = require('../config');
 
-const config = require('../config')
-
-function сountSkipingPages(page) {
-  let result = 0;
-  for (let i = 1; i < page; i++) {
-    result += i;
-  }
-  return result;
-}
-
-function showPosts(req, res) {
+async function showPosts(req, res) {
   const userLogin = req.session.userLogin;
   const userId = req.session.userId;
   const page = Number(req.params.page) || 1;
   const perPage = Number(config.PER_PAGE); 
   
-  models.Post.find({})
-    .skip(page * perPage - perPage)
-    .limit(perPage)
-    .populate('owner') //for getting user by value of owner, which equals user's id
-    .sort({
-      createdAt: -1 // for right rendering - before new posts,
+  try {
+    const posts = await models.Post.find({})
+      .skip(page * perPage - perPage)
+      .limit(perPage)
+      .populate('owner') //for getting user by value of owner, which equals user's id
+      .sort({
+        createdAt: -1 // for right rendering - before new posts,
+      });
+
+    const countPosts = await models.Post.countDocuments();
+
+    res.render('index', {
+      posts,
+      current: page,
+      pages: Math.ceil(countPosts / perPage),
+      user: {
+        id: userId,
+        login: userLogin
+      },
     })
-    .then( posts => {
-      models.Post.countDocuments()
-      .then(count => {        
-        res.render('index', {
-          posts,
-          current: page,
-          pages: Math.ceil(count / perPage),
-          user: {
-            id: userId,
-            login: userLogin
-          },
-        })
-      }).catch(() => {
-        throw new Error('server error');
-      })
-    }).catch(() => {
-      throw new Error('server error');
-    })
+
+  }
+  catch(e) {
+    throw new Error('Posts is not founded');  }
 }
 
 router.get('/', (req, res) => {
@@ -53,7 +43,7 @@ router.get('/archieve/:page', (req, res) => {
   showPosts(req, res)
 });
 
-router.get('/posts/:post', (req, res, next) => {
+router.get('/posts/:post', async (req, res, next) => {
   const userId = req.session.userId;
   const userLogin = req.session.userLogin;
   const url = req.params.post.trim().replace(/ +(?= )/g, '');
@@ -63,11 +53,15 @@ router.get('/posts/:post', (req, res, next) => {
     err.status = 404;
     next(err);
   } else {
-    models.Post.findOne({
-      url
-    }).then((post) => {
+    try {
+      const post = await models.Post.findOne({
+        url
+      });
+
       if (!post) {
-        throw Error('Server error');
+        const err = new Error('Not Found');
+        err.status = 404;
+        next(err);
       } else {
         res.render('post/post', {
           post,
@@ -77,11 +71,15 @@ router.get('/posts/:post', (req, res, next) => {
           },
         })
       }
-    })
+    }
+
+    catch(e) {
+      throw Error('Server error');
+    }
   }
 });
 
-router.get('/users/:login/:page*?', (req, res, next) => {
+router.get('/users/:login/:page*?', async (req, res) => {
   const userLogin = req.session.userLogin;
   const userId = req.session.userId;
   const login = req.params.login;
@@ -89,40 +87,37 @@ router.get('/users/:login/:page*?', (req, res, next) => {
 
   const perPage = Number(config.PER_PAGE); 
   
-  models.User.findOne({
-    login,
-  }).then(user => {
-    models.Post.find({
+  try {
+    const user = await models.User.findOne({
+      login,
+    });
+
+    const posts = await models.Post.find({
       owner: user.id
     })
-    .skip(сountSkipingPages(page))
-    .limit(page)
-    .sort({
-      createdAt: -1 // for right rendering - before new posts,
+      .skip(page * perPage - perPage)
+      .limit(perPage)
+      .sort({ createdAt: -1 });
+
+    const countPosts = await models.Post.countDocuments({
+      owner: user.id
+    });
+
+    res.render('user/user', {
+      posts,
+      _user: user,
+      current: page,
+      pages: Math.ceil(countPosts / perPage),
+      user: {
+        id: userId,
+        login: userLogin
+      },
     })
-    .then( posts => {
-      models.Post.countDocuments({
-        owner: user.id
-      })
-      .then(count => {
-        console.log(count);
-        res.render('user/user', {
-          posts,
-          _user: user,
-          current: page,
-          pages: Math.ceil(count / perPage),
-          user: {
-            id: userId,
-            login: userLogin
-          },
-        })
-      }).catch(() => {
-        throw new Error('server error');
-      })
-    }).catch(() => {
-      throw new Error('server error');
-    })
-  })
+  }
+
+  catch(e) {
+    throw new Error('server error');
+  }
 });
  
 module.exports = router; 

@@ -17,7 +17,7 @@ router.get('/add', (req, res) => {
   });
 })
 
-router.post('/add', (req, res) => {
+router.post('/add', async (req, res) => {
   const userId = req.session.userId;
   const userLogin = req.session.userLogin;
 
@@ -51,24 +51,21 @@ router.post('/add', (req, res) => {
         fields: ['body']
       });
     } else {
-      models.Post.create({
-        title,
-        body: TurndownService.turndown(body),
-        owner: userId,
-      }).then(post => {
-        console.log('post was added');
-        console.log(post);
+      try {
+        const post = await models.Post.create({
+          title,
+          body: TurndownService.turndown(body),
+          owner: userId,
+        });
 
         res.json({
           ok: true,
         });
-      })
-      .catch(e => {
-        res.json({
-          ok: false,
-          error: 'Произошла ошибка. Попробуйте немного позже'
-        });
-      });
+      }
+
+      catch(e) {
+        throw new Error('Server error');
+      }
     }
   }
 });
