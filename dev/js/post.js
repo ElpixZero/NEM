@@ -50,4 +50,9 @@ $(function() {
      });
 
   });
+
+  $('.post .body .mainView').on('click', function(e) {
+    e.preventDefault();
+    $('.post .body .mainView').removeClass('mainView');
+  });
 });

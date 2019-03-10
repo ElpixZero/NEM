@@ -7,15 +7,17 @@
   background-color: $whiteColor;
   border-radius: $borderRadius;
 
-
   .top {
     h2 {
       margin-top: 0;
     }
   }
-  .body {
-    p {
+  .body { 
+    .mainView {
       text-align: justify;
+      overflow: hidden;
+      text-overflow: ellipsis;    
+      max-height: 200px;
     }
   }
 
@@ -47,7 +49,7 @@
     }
     
     #post-body {
-      min-height: 200px;
+      min-height: 100px;
       background-color: $whiteColor;
       border: 1px solid $greyColor;
       padding: 8px 10px;
