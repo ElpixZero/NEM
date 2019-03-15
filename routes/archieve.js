@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const models = require('../Models');
 const config = require('../config');
+const moment = require('moment');
+moment.locale('ru');
+
 
 async function showPosts(req, res) {
   const userLogin = req.session.userLogin;
@@ -51,6 +54,7 @@ router.get('/posts/:post', async (req, res, next) => {
   if (!url || !userLogin || !userId) {
     const err = new Error('Not Found');
     err.status = 404;
+    err.message = 'You are not authorized';
     next(err);
   } else {
     try {
@@ -63,8 +67,16 @@ router.get('/posts/:post', async (req, res, next) => {
         err.status = 404;
         next(err);
       } else {
+
+        const comments = await models.Comment.find({
+          post: post.id,
+          parent: {$exists: false} // for only rendering comments which dont have parents
+        }).populate('children');
+
         res.render('post/post', {
           post,
+          comments,
+          moment,
           user: {
             id: userId,
             login: userLogin
@@ -72,7 +84,6 @@ router.get('/posts/:post', async (req, res, next) => {
         })
       }
     }
-
     catch(e) {
       throw Error('Server error');
     }

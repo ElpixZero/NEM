@@ -26,7 +26,6 @@ $(function() {
       title: $('#post-title').val(),
       body: $('#post-body').html() //because we wanna take data from div, html() can do it, but val() cant/
     };
-    console.log(postData);
 
     $.ajax({
       type: 'POST',
@@ -48,7 +47,6 @@ $(function() {
         $(location).attr('href', '/');
       }
      });
-
   });
 
   $('.post .body .mainView').on('click', function(e) {

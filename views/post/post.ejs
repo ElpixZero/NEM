@@ -3,6 +3,7 @@
 <div class="main">
   <div class="container">
     <div class="content">
+      
       <div class="post">
         <div class="top">
           <h2> 
@@ -18,7 +19,21 @@
           <div class="author">
             Author: <a href="/"><%= user.login %></a>
           </div>
-            <a href="/">Comments</a>
+        </div>
+      </div>
+
+      <div class="comments" id="<%= post.id %>">
+        <h3>Комментарии</h3>
+        <div class="comment-list">
+          <%- include('../layout/comments.ejs', {items: comments}) %>
+        <span class="link" id="new">Оставить комментарий</span>
+          <form class="comment">
+            <textarea name="body"></textarea>
+            <div class="buttons">
+              <button class="cancel secondary">Отмена</button>
+              <button class="send">Добавить</button>
+            </div>
+          </form>
         </div>
       </div>
 
