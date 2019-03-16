@@ -10,49 +10,60 @@ router.post('/add', async (req, res) => {
     res.json({
       ok: false
     })
-  } else {
-    const {post, body, parent} = req.body;
+  } 
+  const {post, body, parent} = req.body;
 
-    try {
-      if (!parent) {
-       await models.Comment.create({
+  if (!body) {
+    res.json({
+      ok: false,
+      error: 'Необходимо ввести комментарий'
+    })
+  }
+
+  try {
+    if (!parent) {
+    await models.Comment.create({
+      post,
+      body,
+      owner: userId
+      });
+
+      res.json({
+        ok: true,
+        owner: userLogin,        
+      })
+    } else {
+      const parentComment = await models.Comment.findById(parent);
+
+      if (!parentComment) {
+        res.json({
+          ok: false,
+        });
+      }
+
+      const comment = await models.Comment.create({
         post,
+        parent,
         body,
         owner: userId
-        });
-      } else {
+      });
 
-        const parentComment = await models.Comment.findById(parent);
+      const childrenOfParentComment = parentComment.children;
+      childrenOfParentComment.push(comment.id)
+      parentComment.children = childrenOfParentComment;
+      await parentComment.save();
 
-        if (!parentComment) {
-          res.json({
-            ok: false,
-          });
-        }
-
-        const comment = await models.Comment.create({
-          post,
-          parent,
-          body,
-          owner: userId
-        });
-
-        const childrenOfParentComment = parentComment.children;
-        childrenOfParentComment.push(comment.id)
-        parentComment.children = childrenOfParentComment;
-        await parentComment.save();
-
-        res.json({
-          ok: true
-        })
-      }
-    }
-    catch(e){
       res.json({
-        ok: false
+        ok: true,
+        owner: userLogin,        
       })
     }
   }
+  catch(e){
+    res.json({
+      ok: false
+    })
+  } 
 });
 
 
