@@ -13,6 +13,7 @@
 
   form {  
     display: none;
+    margin-top: $freeSpace * 0.4;
       
     .buttons {
       display: flex;
@@ -28,10 +29,11 @@
   }
 
   .comment-list {
+
     ul {
       list-style: none;
       border-left: 1px solid $greyColor;
-      padding-left: $freeSpace * 1.2;
+      padding-left: $freeSpace * 0.8;
 
       &:first-child {
         border: none;

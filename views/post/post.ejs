@@ -23,17 +23,17 @@
       </div>
 
       <div class="comments" id="<%= post.id %>">
-        <h3>Комментарии</h3>
+        <h3>Комментарии: <%= post.commentCount %> </h3>
         <div class="comment-list">
           <%- include('../layout/comments.ejs', {items: comments}) %>
-        <span class="link" id="new">Оставить комментарий</span>
-          <form class="comment">
-            <textarea name="body"></textarea>
-            <div class="buttons">
-              <button class="cancel secondary">Отмена</button>
-              <button class="send">Добавить</button>
-            </div>
-          </form>
+
+        <form class="comment">
+          <textarea name="body"></textarea>
+          <div class="buttons">
+            <button class="cancel secondary">Отмена</button>
+            <button class="send">Добавить</button>
+          </div>
+        </form>
         </div>
       </div>
 

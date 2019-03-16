@@ -19,7 +19,7 @@
               <div class="author">
                 Author: <a href="/users/<%= post.owner.login  %>"><%= post.owner.login %></a>
               </div>
-                <a href="/">Comments</a>
+                <a href="/posts/<%= post.url %>">Комментарии: <%= post.commentCount %></a>
             </div>
           </div>
       <% }) %>
