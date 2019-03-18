@@ -7,13 +7,6 @@ $(function() {
     $('#post-title, #post-body').removeClass('error');
   };
 
-  var editor = new MediumEditor('#post-body', {
-    placeholder: {
-      text: '',
-      hideOnClick: true
-    }
-  });
-
   // clear input forms
   $('.add-post input, #post-body').on('focus', removeErrors);
 
@@ -24,7 +17,7 @@ $(function() {
 
     var postData = {
       title: $('#post-title').val(),
-      body: $('#post-body').html() //because we wanna take data from div, html() can do it, but val() cant/
+      body: $('#post-body').val()
     };
 
     $.ajax({
@@ -52,5 +45,25 @@ $(function() {
   $('.post .body .mainView').on('click', function(e) {
     e.preventDefault();
     $('.post .body .mainView').removeClass('mainView');
+  });
+
+  //upload 
+  $('#fileInfo').on('submit', function(e) {
+    e.preventDefault();
+
+    var formData = new FormData(this);
+    $.ajax({
+      type: 'POST',
+      url: '/upload/image',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(r) {
+        console.log(r);
+      },
+      error: function(e) {
+        console.log(e);
+      }
+    })
   });
 });

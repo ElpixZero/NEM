@@ -58,6 +58,8 @@ app.use('/api/auth', routes.auth);
 app.use('/posts', routes.post);
 app.use('/', routes.archieve);
 app.use('/comment', routes.comment);
+app.use('/upload', routes.upload);
+
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
