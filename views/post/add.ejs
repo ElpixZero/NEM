@@ -5,19 +5,24 @@
     <div class="content add-post">
         <h2>Добавление поста</h2>
 
-      <form>
+      <form method="POST">
         <div class="form-group">
           <label for="post-title"> Заголовок</label>
           <input type="text" id="post-title">
         </div>
         <div class="form-group">
           <label for="post-body">Текст</label>
-          <div id="post-body"></div>
+          <textarea id="post-body"></textarea>
         </div>
         <div class="buttons">
           <button class='save-button secondary-inverse' type='submit'>Сохранить как черновик</button>
           <button class='publish-button' type='submit'>Опубликовать</button>
       </div>
+      </form>
+
+      <form method="POST" enctype="multipart/form-data" id="fileInfo">
+        <input type="file" name="file" id="file" required>
+        <button class="upload-button">Загрузить</button>
       </form>
     </div>
 
