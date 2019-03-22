@@ -8,6 +8,9 @@
   border-radius: $borderRadius;
 
   .top {
+    display: flex;
+    justify-content: space-between;
+
     h2 {
       margin-top: 0;
     }

@@ -55,7 +55,7 @@ app.use(
 
 // routers
 app.use('/api/auth', routes.auth);
-app.use('/posts', routes.post);
+app.use('/post', routes.post);
 app.use('/', routes.archieve);
 app.use('/comment', routes.comment);
 app.use('/upload', routes.upload);

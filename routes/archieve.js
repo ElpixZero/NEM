@@ -5,7 +5,6 @@ const config = require('../config');
 const moment = require('moment');
 moment.locale('ru');
 
-
 async function showPosts(req, res) {
   const userLogin = req.session.userLogin;
   const userId = req.session.userId;
@@ -13,7 +12,9 @@ async function showPosts(req, res) {
   const perPage = Number(config.PER_PAGE); 
   
   try {
-    const posts = await models.Post.find({})
+    const posts = await models.Post.find({
+      status: 'published'
+    })
       .skip(page * perPage - perPage)
       .limit(perPage)
       .populate('owner') //for getting user by value of owner, which equals user's id
@@ -46,7 +47,7 @@ router.get('/archieve/:page', (req, res) => {
   showPosts(req, res)
 });
 
-router.get('/posts/:post', async (req, res, next) => {
+router.get('/post/:post', async (req, res, next) => {
   const userId = req.session.userId;
   const userLogin = req.session.userLogin;
   const url = req.params.post.trim().replace(/ +(?= )/g, '');
@@ -59,7 +60,8 @@ router.get('/posts/:post', async (req, res, next) => {
   } else {
     try {
       const post = await models.Post.findOne({
-        url
+        url,
+        status: 'published'
       });
 
       if (!post) {

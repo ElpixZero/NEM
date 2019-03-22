@@ -10,23 +10,25 @@ $(function() {
   // clear input forms
   $('.add-post input, #post-body').on('focus', removeErrors);
 
-  $('.publish-button').on('click', function(e)  {
+  $('.publish-button, .save-button').on('click', function(e) {
     e.preventDefault();
-
     removeErrors();
+
+    var isDraft = $(this).attr('class').split(' ')[0] === 'save-button';
 
     var postData = {
       title: $('#post-title').val(),
-      body: $('#post-body').val()
+      body: $('#post-body').val(),
+      isDraft: isDraft,
+      postId: $('#postId').val(),
     };
 
     $.ajax({
       type: 'POST',
       data: JSON.stringify(postData),
       contentType: 'application/json',
-      url: '/posts/add',
+      url: '/post/add',
     }).done(function(data) {
-
       if (!data.ok) {
         $('.add-post h2').after('<p class="error">' + data.error + '</p>');
 
@@ -37,11 +39,16 @@ $(function() {
           });
         } 
       } else {
-        $(location).attr('href', '/');
+        if (isDraft) {
+          $(location).attr('href', '/post/edit/' + data.post.id)
+        } else {
+          $(location).attr('href', '/');
+
+        }
       }
      });
   });
-
+  
   $('.post .body .mainView').on('click', function(e) {
     e.preventDefault();
     $('.post .body .mainView').removeClass('mainView');
