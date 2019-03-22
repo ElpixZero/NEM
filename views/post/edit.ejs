@@ -3,16 +3,25 @@
 <div class="main">
   <div class="container">
     <div class="content add-post">
+
+      <% if (post.title) { %>
+        <h2>Редактирование поста</h2>
+
+      <% } else { %>
         <h2>Добавление поста</h2>
+      <% }  %>
 
       <form method="POST">
         <div class="form-group">
           <label for="post-title"> Заголовок</label>
-          <input type="text" id="post-title">
+          <input type="text" id="post-title" 
+            value="<%= post.title %>" 
+          />
         </div>
         <div class="form-group">
           <label for="post-body">Текст</label>
-          <textarea id="post-body"></textarea>
+          <textarea id="post-body" ><%= post.body %></textarea>
+          <input type="hidden" id="postId" name="postId" value="<%= post.id %>">
         </div>
         <div class="buttons">
           <button class='save-button secondary-inverse' type='submit'>Сохранить как черновик</button>
