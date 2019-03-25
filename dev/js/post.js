@@ -20,7 +20,7 @@ $(function() {
       title: $('#post-title').val(),
       body: $('#post-body').val(),
       isDraft: isDraft,
-      postId: $('#postId').val(),
+      postId: $('#post-id').val(),
     };
 
     $.ajax({
@@ -55,18 +55,21 @@ $(function() {
   });
 
   //upload 
-  $('#fileInfo').on('submit', function(e) {
-    e.preventDefault();
+  $('#file').on('change', function() {
 
-    var formData = new FormData(this);
+    var formData = new FormData();
+    formData.append('postId', $('#post-id').val());
+    formData.append('file', $('#file')[0].files[0]);
+
     $.ajax({
       type: 'POST',
       url: '/upload/image',
       data: formData,
       processData: false,
       contentType: false,
-      success: function(r) {
-        console.log(r);
+      success: function(data) {
+        console.log(data);
+        $('#fileInfo').prepend('<div class="img-container"><img src="/uploads' + data.filePath +'" alt="" /> </div>')
       },
       error: function(e) {
         console.log(e);

@@ -26,6 +26,12 @@ const schema = new Schema(
       required: true,
       default: 'published'
     },
+    uploads: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Upload'
+      }
+    ]
   },
   {
     timestamps: true

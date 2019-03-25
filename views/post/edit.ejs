@@ -18,20 +18,28 @@
             value="<%= post.title %>" 
           />
         </div>
+
         <div class="form-group">
           <label for="post-body">Текст</label>
           <textarea id="post-body" ><%= post.body %></textarea>
-          <input type="hidden" id="postId" name="postId" value="<%= post.id %>">
         </div>
+
+        <div id="fileInfo">
+          <% post.uploads.forEach(function(upload) {  %>
+          <div class="img-container">
+            <img src="/uploads<%= upload.path %>" alt="" /> 
+          </div>
+          <% }) %>
+          <input type="hidden" id="post-id" name="postId" value="<%= post.id %>">
+          <label for="file" class="custom-file-upload">
+            <input type="file" name="file" id="file" required /> +
+          </label>
+        </div>
+
         <div class="buttons">
           <button class='save-button secondary-inverse' type='submit'>Сохранить как черновик</button>
           <button class='publish-button' type='submit'>Опубликовать</button>
-      </div>
-      </form>
-
-      <form method="POST" enctype="multipart/form-data" id="fileInfo">
-        <input type="file" name="file" id="file" required>
-        <button class="upload-button">Загрузить</button>
+        </div>
       </form>
     </div>
 

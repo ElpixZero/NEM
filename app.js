@@ -52,6 +52,7 @@ app.use(
   '/javascripts',
   express.static(path.join(__dirname, 'node_modules', 'jquery', 'dist'))
 );
+app.use('/uploads', express.static(path.join(__dirname, config.DESTINATION)));
 
 // routers
 app.use('/api/auth', routes.auth);

@@ -48,6 +48,7 @@ router.post('/add', async (req, res) => {
     const isDraft = !!req.body.isDraft;
     const postId = req.body.postId;
     const url = `${tr.slugify(title)}-${Date.now().toString(36)}`;
+    console.log(req.body)
 
     if (!title || !body) {
       const fieldsError = [];
@@ -120,7 +121,7 @@ router.get('/edit/:id', async (req, res, next) => {
     res.redirect('/');
   } else {
     try {
-      const post = await models.Post.findById(id);
+      const post = await models.Post.findById(id).populate('uploads');
 
       if (!post) {
         const err = new Error('Not Found');
