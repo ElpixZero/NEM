@@ -59,4 +59,41 @@
       outline: none;
     }
   }
+
+  #fileInfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: $freeSpace;
+    border: 1px solid $greyColor;
+    border-radius: $borderRadius;
+    margin-bottom: $freeSpace;
+
+    .custom-file-upload {
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid $greyColor;
+      padding-left: $freeSpace;
+      padding-right: $freeSpace;
+      display: flex;
+      align-items: center;
+      border-radius: $borderRadius;
+      height: 50px;
+
+      input[type=file] {
+        display: none;
+      }
+    }
+
+    .img-container {
+      height: 50px;
+      margin-right: $freeSpace;
+      border: 1px solid $greyColor;
+    }
+
+    img {
+      height: 100%;
+    }
+  }
 }
