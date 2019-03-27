@@ -22,8 +22,11 @@
       text-overflow: ellipsis;    
       max-height: 200px;
     }
-  }
 
+    p>img {
+      width: 100%;
+    }
+  }
   .bottom {
     font-size: 0.9em;
     display: flex;
