@@ -11,5 +11,4 @@ module.exports = {
   SESSION_SECRET: process.env.SESSION_SECRET,
   PER_PAGE: process.env.PER_PAGE,
   DESTINATION: 'uploads',
-
 }; 

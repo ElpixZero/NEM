@@ -48,7 +48,6 @@ router.post('/add', async (req, res) => {
     const isDraft = !!req.body.isDraft;
     const postId = req.body.postId;
     const url = `${tr.slugify(title)}-${Date.now().toString(36)}`;
-    console.log(req.body)
 
     if (!title || !body) {
       const fieldsError = [];
