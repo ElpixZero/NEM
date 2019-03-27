@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-const Sharp = require('sharp'); // for editin the download images (compressing, name, folder etc...)
+const Sharp = require('sharp'); // for editing the download images (compressing, name, folder etc...)
 const multer = require('multer'); // for downloading images
 const mkdirp = require('mkdirp');
 
