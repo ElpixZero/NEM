@@ -10,17 +10,11 @@ $borderRadius: 2px;
 $errorColor: red;
 $successColor: green;
 
-
-
-
 @import 'reset';
 @import 'grid';
 @import 'forms';
 @import 'typography';
 @import 'links';
-@import '../../node_modules/medium-editor/dist/css/medium-editor';
-@import '../../node_modules/medium-editor/dist/css/themes/default';
-
 
 html {
   display: flex;
