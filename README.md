@@ -18,20 +18,20 @@ App has next stack of technologies:
 
 
 
-- H2 When you go to the site for the first time you can see all the articles that was written by other users. It looks like:
+# h2 When you go to the site for the first time you can see all the articles that was written by other users. It looks like:
 
 ![starting page](readme/images/start-page.png)
 
 
 In the center - all articles. In the sidebar - form for registration and login.
 
-- H2 If you are going to post your own articles you need to register. When are you registered you can post some articles. It looks like:
+# h2 If you are going to post your own articles you need to register. When are you registered you can post some articles. It looks like:
 
 ![starting page](readme/images/post.png)
 
 You need to input title and text. And if you want to you can add images. When you post this article, it will be shown in the main page for all users.
 
-**Read more usefull information and share it with the world.**
+# h1 **Read more usefull information and share it with the world.**
 
 
 
