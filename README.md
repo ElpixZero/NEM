@@ -17,21 +17,21 @@ App has next stack of technologies:
 **"npm run dev"** - for starting this project on 5000 port (before it you need to have database 'MongoDb' and start it (command 'mongod' in the root folder))
 
 
-
-# h2 When you go to the site for the first time you can see all the articles that was written by other users. It looks like:
+## Using
+- When you go to the site for the first time you can see all the articles that was written by other users. It looks like:
 
 ![starting page](readme/images/start-page.png)
 
 
 In the center - all articles. In the sidebar - form for registration and login.
 
-# h2 If you are going to post your own articles you need to register. When are you registered you can post some articles. It looks like:
+- If you are going to post your own articles you need to register. When are you registered you can post some articles. It looks like:
 
 ![starting page](readme/images/post.png)
 
 You need to input title and text. And if you want to you can add images. When you post this article, it will be shown in the main page for all users.
 
-# h1 **Read more usefull information and share it with the world.**
+## **Read more usefull information and share it with the world.**
 
 
 
