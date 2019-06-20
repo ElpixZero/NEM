@@ -33,7 +33,7 @@ In the center - all articles. In the sidebar - form for registration and login.
 
 ![starting page](readme/images/edit.png)
 
-- You need to input the title and text. And if you want to you can add images. When you post this article, it will be shown in the main page for all users.
+You need to input the title and text. And if you want to you can add images. When you post this article, it will be shown in the main page for all users.
 
 - Do you like the article or want to say more? You can add the comment! It looks like:
 
