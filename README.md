@@ -1,4 +1,4 @@
-**NEM** - servisе, where you can read a lot of articles about different topics and write your own articles, stories etc.
+**Pepelatzh** - servisе, where you can read a lot of articles about different topics and write your own articles, stories etc.
 
 App has next stack of technologies:
   - **Frontend:**
@@ -41,7 +41,7 @@ You need to input the title and text. And if you want to you can add images. Whe
 
 
 
-## **Read more usefull information and share it with the world.**
+## **Read more usefull information and share it with the world with Pepelatzh.**
 
 
 
